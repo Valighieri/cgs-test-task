@@ -10,6 +10,7 @@ import com.example.cgstest.service.BusRouteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,5 +50,15 @@ public class BusRouteController {
     ) {
         return busRouteService.listSeats(routeId);
     }
+
+    @DeleteMapping("/{routeId}/seats/{seatNumber}/booking")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void cancelBooking(
+            @PathVariable Long   routeId,
+            @PathVariable Integer seatNumber
+    ) {
+        busRouteService.cancelBooking(routeId, seatNumber);
+    }
+
 }
 

@@ -9,6 +9,7 @@ import com.example.cgstest.model.dto.BusRouteDto;
 import com.example.cgstest.model.dto.CreateBusRouteRequest;
 import com.example.cgstest.model.dto.SeatStatusDto;
 import com.example.cgstest.repository.BusRouteRepository;
+import com.example.cgstest.repository.SeatRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BusRouteService {
     private final BusRouteRepository busRouteRepository;
+    private final SeatRepository seatRepository;
     private final BusRouteMapper busRouteMapper;
     private final SeatMapper seatMapper;
 
@@ -48,6 +50,24 @@ public class BusRouteService {
         return route.getSeats().stream()
                 .map(seatMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void cancelBooking(Long routeId, Integer seatNumber) {
+        SeatId id = new SeatId(routeId, seatNumber);
+        Seat seat = seatRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Seat " + seatNumber + " on route " + routeId + " not found"));
+
+        if (seat.getBooking() == null) {
+            throw new IllegalStateException(
+                    "Seat " + seatNumber + " on route " + routeId + " is not booked");
+        }
+
+        seat.setBooking(null);
+        seat.setBookable(true);
+
+        seatRepository.save(seat);
     }
 }
 
