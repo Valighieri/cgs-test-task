@@ -4,7 +4,6 @@ import com.example.cgstest.model.domain.BusRoute;
 import com.example.cgstest.model.dto.BusRouteDto;
 import com.example.cgstest.model.dto.CreateBusRouteRequest;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface BusRouteMapper {
