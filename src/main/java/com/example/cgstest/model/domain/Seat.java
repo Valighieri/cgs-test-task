@@ -27,13 +27,13 @@ import lombok.ToString;
 public class Seat {
 
     @EmbeddedId
-    @EqualsAndHashCode.Include
     private SeatId id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("busRouteId")
     @JoinColumn(name = "bus_route_id", nullable = false)
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @JsonBackReference
     private BusRoute busRoute;
 
@@ -47,6 +47,7 @@ public class Seat {
             fetch = FetchType.LAZY
     )
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @JsonManagedReference
     private Booking booking;
 

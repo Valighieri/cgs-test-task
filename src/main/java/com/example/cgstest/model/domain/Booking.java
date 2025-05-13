@@ -27,7 +27,6 @@ import java.time.Instant;
 public class Booking {
 
     @EmbeddedId
-    @EqualsAndHashCode.Include
     private SeatId id;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -37,6 +36,7 @@ public class Booking {
             @JoinColumn(name = "seat_number",  referencedColumnName = "seat_number")
     })
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @JsonBackReference
     private Seat seat;
 

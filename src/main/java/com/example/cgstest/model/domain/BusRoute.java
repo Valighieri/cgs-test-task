@@ -23,11 +23,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "bus_route")
-@SequenceGenerator(
-        name = "bus_route_seq",
-        sequenceName = "bus_route_id_seq",
-        allocationSize = 1
-)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,11 +30,7 @@ import java.util.List;
 public class BusRoute {
 
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "bus_route_seq"
-    )
-    @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
     private Long id;
 
@@ -55,6 +46,7 @@ public class BusRoute {
             orphanRemoval = true
     )
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @JsonManagedReference
     private List<Seat> seats = new ArrayList<>();
 
