@@ -1,0 +1,24 @@
+### 1) List all seats for a route
+GET http://localhost:8080/api/bus-routes/1/seats
+Accept: application/json
+
+### 2) Create a new bus route
+POST http://localhost:8080/api/bus-routes
+Content-Type: application/json
+
+{
+  "routeName": "Zhytomyr - Lviv",
+  "seatCount": 8
+}
+
+### 3) Book a seat
+POST http://localhost:8080/api/bus-routes/1/seats/7/booking
+Content-Type: application/json
+
+{
+  "passengerFirstName": "Valentyn",
+  "passengerLastName":  "Uvarov"
+}
+
+### 4) Cancel a booking
+DELETE http://localhost:8080/api/bus-routes/1/seats/7/booking
